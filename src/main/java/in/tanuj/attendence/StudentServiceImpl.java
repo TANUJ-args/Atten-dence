@@ -4,29 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentServiceImpl implements StudentService{
 
+    @Autowired
+    private StudentServiceRepository studentRepository;
+
     //List<Student> students = new ArrayList<>();
     @Override
+
     public String CreateStudent(Student student) {
         StudentEntity studentEntity = new StudentEntity();
         BeanUtils.copyProperties(student, studentEntity);
+        studentRepository.save(studentEntity);
         return "Student added successfully";
     }
 
     @Override
     public List<Student> ReadAllStudents() {
-        List<StudentEntity> studentList = new ArrayList<>();
+        List<StudentEntity> studentEntities = studentRepository.findAll();
         List<Student> students = new ArrayList<>();
-        for(StudentEntity studentEntity : studentList) {
+        for (StudentEntity studentEntity : studentEntities) {
             Student student = new Student();
-            student.setRollNo(studentEntity.getRollNo());
-            student.setName(studentEntity.getName());
-            student.setEmail(studentEntity.getEmail());
-
+            BeanUtils.copyProperties(studentEntity, student);
             students.add(student);
         }
         return students;
@@ -34,18 +37,29 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public boolean DeleteStudent(int rollNo) {
-        for (Student)
+        for (Student student : ReadAllStudents()){
+            if(student.getRollNo()==rollNo){
+                studentRepository.deleteById(rollNo);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public String UpdateStudent(int rollNo, Student updatedStudent) {
-        for (Student student : students) {
-            if (student.getRollNo() == rollNo) {
-                student.setName(updatedStudent.getName());
-                student.setEmail(updatedStudent.getEmail());
+        for (Student student : ReadAllStudents()){
+            if(student.getRollNo()==rollNo){
+                StudentEntity studentEntity = new StudentEntity();
+                BeanUtils.copyProperties(updatedStudent, studentEntity);
+                studentEntity.setRollNo(rollNo);
+                studentRepository.save(studentEntity);
                 return "Student updated successfully";
             }
         }
         return "Student not found";
     }
+
+    
+
 }
