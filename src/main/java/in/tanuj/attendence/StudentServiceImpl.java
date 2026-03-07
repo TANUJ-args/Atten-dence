@@ -37,13 +37,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public boolean DeleteStudent(int rollNo) {
-        for (Student student : ReadAllStudents()){
-            if(student.getRollNo()==rollNo){
-                studentRepository.deleteById(rollNo);
-                return true;
-            }
-        }
-        return false;
+        StudentEntity std = studentRepository.findById(rollNo).get();
+        studentRepository.delete(std);
+        return true;
     }
 
     @Override
@@ -60,6 +56,13 @@ public class StudentServiceImpl implements StudentService{
         return "Student not found";
     }
 
-    
+    @Override
+    public Student ReadStudentById(int rollNo) {
+        StudentEntity exStudentEntity = studentRepository.findById(rollNo).get();
+        Student student = new Student();
+        BeanUtils.copyProperties(exStudentEntity, student);
+        return student;
+    }
 
+    
 }

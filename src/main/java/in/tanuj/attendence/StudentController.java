@@ -28,6 +28,11 @@ public class StudentController {
     public List<Student> getallstudent() {
         return stdService.ReadAllStudents();
     }
+
+    @GetMapping("student/{rollNo}")
+    public Student getstudentbyid(@PathVariable int rollNo) {
+        return stdService.ReadStudentById(rollNo);
+    }
     
     @PostMapping("student")
     public String createStudent(@RequestBody Student student) {
