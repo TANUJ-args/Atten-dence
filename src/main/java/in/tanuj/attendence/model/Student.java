@@ -1,4 +1,4 @@
-package in.tanuj.attendence;
+package in.tanuj.attendence.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

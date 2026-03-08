@@ -1,4 +1,6 @@
-package in.tanuj.attendence;
+package in.tanuj.attendence.service;
+
+import in.tanuj.attendence.model.Student;
 
 import java.util.List;
 

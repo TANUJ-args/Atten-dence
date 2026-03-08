@@ -1,4 +1,8 @@
-package in.tanuj.attendence;
+package in.tanuj.attendence.service;
+
+import in.tanuj.attendence.entity.StudentEntity;
+import in.tanuj.attendence.model.Student;
+import in.tanuj.attendence.repository.StudentServiceRepository;
 
 import java.util.ArrayList;
 import java.util.List;

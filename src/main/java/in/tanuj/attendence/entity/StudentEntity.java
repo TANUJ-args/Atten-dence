@@ -1,4 +1,4 @@
-package in.tanuj.attendence;
+package in.tanuj.attendence.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
