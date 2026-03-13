@@ -17,7 +17,6 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     private StudentServiceRepository studentRepository;
 
-    //List<Student> students = new ArrayList<>();
     @Override
 
     public String CreateStudent(Student student) {

@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             return "user already exists";
         }
+        if(user.getEmail()== null || user.getPassword()== null){
+            return "Email or Password should not be empty";
+        }
         userEntity.setEmail(user.getEmail().toLowerCase());
         userEntity.setPassword(user.getPassword());
         userRepository.save(userEntity);
